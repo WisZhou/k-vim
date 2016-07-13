@@ -26,14 +26,25 @@
 " 修改leader键
 let mapleader = ','
 let g:mapleader = ','
-
-" 开启语法高亮
-syntax on
+let g:user_emmet_leader_key = '<C-Z>'
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_syntax = 0
 
 " install bundles
 if filereadable(expand("~/.vimrc.bundles"))
   source ~/.vimrc.bundles
 endif
+
+" Pathogen load
+filetype off
+
+call pathogen#infect()
+call pathogen#helptags()
+
+filetype plugin indent on
+syntax on 
+
 
 " ensure ftdetect et al work by including this after the bundle stuff
 filetype plugin indent on
@@ -87,11 +98,6 @@ set noswapfile
 " endif
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
-
-" 突出显示当前列
-set cursorcolumn
-" 突出显示当前行
-set cursorline
 
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
@@ -201,6 +207,7 @@ set smartindent
 " 打开自动缩进
 " never add copyindent, case error   " copy the previous indentation on autoindenting
 set autoindent
+set autochdir
 
 " tab相关变更
 " 设置Tab键的宽度        [等同的空格个数]
@@ -223,22 +230,6 @@ set ttyfast
 
 " 00x增减数字时使用十进制
 set nrformats=
-
-" 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
-set relativenumber number
-au FocusLost * :set norelativenumber number
-au FocusGained * :set relativenumber
-" 插入模式下用绝对行号, 普通模式下用相对
-autocmd InsertEnter * :set norelativenumber number
-autocmd InsertLeave * :set relativenumber
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set norelativenumber number
-  else
-    set relativenumber
-  endif
-endfunc
-nnoremap <C-n> :call NumberToggle()<cr>
 
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
@@ -322,12 +313,6 @@ endif
 
 " 主要按键重定义
 
-" 关闭方向键, 强迫自己用 hjkl
-map <Left> <Nop>
-map <Right> <Nop>
-map <Up> <Nop>
-map <Down> <Nop>
-
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
 nnoremap k gk
@@ -344,14 +329,11 @@ noremap <F1> <Esc>"
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
+  if(&number)
     set number!
   else
-    set relativenumber!
+    set number 
   endif
-  set number?
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
@@ -424,9 +406,6 @@ cnoremap <C-e> <End>
 " 搜索相关
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
-" 进入搜索Use sane regexes"
-nnoremap / /\v
-vnoremap / /\v
 
 " Keep search pattern at the center of the screen.
 nnoremap <silent> n nzz
@@ -451,9 +430,6 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 " 切换前后buffer
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
-" 使用方向键切换buffer
-noremap <left> :bp<CR>
-noremap <right> :bn<CR>
 
 
 " tab 操作
@@ -523,7 +499,7 @@ map <Leader>sa ggVG
 nnoremap <leader>v V`}
 
 " w!! to sudo & write a file
-cmap w!! w !sudo tee >/dev/null %
+nmap <leader>W :w !sudo tee >/dev/null %
 
 " kj 替换 Esc
 inoremap kj <Esc>
@@ -660,7 +636,7 @@ endif
 
 
 " theme主题
-set background=dark
+set background=light
 set t_Co=256
 
 colorscheme solarized
@@ -683,6 +659,10 @@ highlight SpellRare term=underline cterm=underline
 highlight clear SpellLocal
 highlight SpellLocal term=underline cterm=underline
 
-
-
-
+if &term =~ '^screen'
+    " tmux will send xterm-style keys when its xterm-keys option is on
+    execute "set <xUp>=\e[1;*A"
+    execute "set <xDown>=\e[1;*B"
+    execute "set <xRight>=\e[1;*C"
+    execute "set <xLeft>=\e[1;*D"
+endif
