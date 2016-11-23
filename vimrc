@@ -43,7 +43,7 @@ call pathogen#infect()
 call pathogen#helptags()
 
 filetype plugin indent on
-syntax on 
+syntax on
 
 
 " ensure ftdetect et al work by including this after the bundle stuff

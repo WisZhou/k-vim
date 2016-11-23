@@ -762,4 +762,6 @@ call plug#end()
     " nnoremap <leader>y :call Yapf()<cr>
 " }}}
 
+let g:pymode_rope_goto_definition_cmd = 'vs'
+
 "------------------------------------------- end of configs --------------------------------------------
