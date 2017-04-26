@@ -530,7 +530,7 @@ nnoremap U <C-r>
 " Quickly edit/reload the vimrc file
 nmap <silent> <leader>ev :e $MYVIMRC<CR>
 nmap <silent> <leader>sv :so $MYVIMRC<CR>
-map <C-p> o__import__('pdb').set_trace()<ESC> 
+map <C-p> o__import__('ipdb').set_trace()<ESC>
 
 "==========================================
 " FileType Settings  文件类型设置
