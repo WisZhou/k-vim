@@ -27,9 +27,10 @@
 " 修改leader键
 let mapleader = ','
 let g:mapleader = ','
-
-" 开启语法高亮
-syntax on
+let g:user_emmet_leader_key = '<C-Z>'
+let g:pymode_rope_completion = 0
+let g:pymode_rope_complete_on_dot = 0
+let g:pymode_syntax = 0
 
 " install bundles
 if filereadable(expand("~/.vimrc.bundles"))
@@ -37,6 +38,16 @@ if filereadable(expand("~/.vimrc.bundles"))
 elseif filereadable(expand("~/.config/nvim/vimrc.bundles")) " neovim
   source ~/.config/nvim/vimrc.bundles
 endif
+
+" Pathogen load
+filetype off
+
+call pathogen#infect()
+call pathogen#helptags()
+
+filetype plugin indent on
+syntax on
+
 
 " ensure ftdetect et al work by including this after the bundle stuff
 filetype plugin indent on
@@ -71,9 +82,9 @@ set shortmess=atI
 "set backupdir=/tmp/vimbk/
 
 " 取消备份。 视情况自己改
-set nobackup
+" set nobackup
 " 关闭交换文件
-set noswapfile
+" set noswapfile
 
 
 " TODO: remove this, use gundo
@@ -90,11 +101,6 @@ set noswapfile
 " endif
 
 set wildignore=*.swp,*.bak,*.pyc,*.class,.svn
-
-" 突出显示当前列
-set cursorcolumn
-" 突出显示当前行
-set cursorline
 
 
 " 设置 退出vim后，内容显示在终端屏幕, 可以用于查看和复制, 不需要可以去掉
@@ -204,6 +210,7 @@ set smartindent
 " 打开自动缩进
 " never add copyindent, case error   " copy the previous indentation on autoindenting
 set autoindent
+set autochdir
 
 " tab相关变更
 " 设置Tab键的宽度        [等同的空格个数]
@@ -227,6 +234,7 @@ set ttyfast
 " 00x增减数字时使用十进制
 set nrformats=
 
+<<<<<<< HEAD
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
 " set relativenumber number
 au FocusLost * :set norelativenumber number
@@ -243,6 +251,8 @@ function! NumberToggle()
 endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
+=======
+>>>>>>> 419ce1400b92aa3b4dab385ee75d504fd997b330
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
 if &term =~ '256color'
@@ -325,12 +335,15 @@ endif
 
 " 主要按键重定义
 
+<<<<<<< HEAD
 " 关闭方向键, 强迫自己用 hjkl
 " map <Left> <Nop>
 " map <Right> <Nop>
 " map <Up> <Nop>
 " map <Down> <Nop>
 
+=======
+>>>>>>> 419ce1400b92aa3b4dab385ee75d504fd997b330
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
 nnoremap k gk
@@ -347,14 +360,11 @@ noremap <F1> <Esc>"
 " F2 行号开关，用于鼠标复制代码用
 " 为方便复制，用<F2>开启/关闭行号显示:
 function! HideNumber()
-  if(&relativenumber == &number)
-    set relativenumber! number!
-  elseif(&number)
+  if(&number)
     set number!
   else
-    set relativenumber!
+    set number 
   endif
-  set number?
 endfunc
 nnoremap <F2> :call HideNumber()<CR>
 " F3 显示可打印字符开关
@@ -427,23 +437,20 @@ cnoremap <C-e> <End>
 " 搜索相关
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
 map <space> /
-" 进入搜索Use sane regexes"
-nnoremap / /\v
-vnoremap / /\v
 
 " Keep search pattern at the center of the screen.
-nnoremap <silent> n nzz
-nnoremap <silent> N Nzz
-nnoremap <silent> * *zz
-nnoremap <silent> # #zz
-nnoremap <silent> g* g*zz
+" nnoremap <silent> n nzz
+" nnoremap <silent> N Nzz
+" nnoremap <silent> * *zz
+" nnoremap <silent> # #zz
+" nnoremap <silent> g* g*zz
 
 " 去掉搜索高亮
 noremap <silent><leader>/ :nohls<CR>
 
 " switch # *
-nnoremap # *
-nnoremap * #
+" nnoremap # *
+" nnoremap * #
 
 " for # indent, python文件中输入新行时#号注释不切回行首
 autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
@@ -454,9 +461,12 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 " 切换前后buffer
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
+<<<<<<< HEAD
 " 使用方向键切换buffer
 " noremap <left> :bp<CR>
 " noremap <right> :bn<CR>
+=======
+>>>>>>> 419ce1400b92aa3b4dab385ee75d504fd997b330
 
 
 " tab 操作
@@ -529,7 +539,7 @@ nnoremap gv `[v`]
 nnoremap <leader>v V`}
 
 " w!! to sudo & write a file
-cmap w!! w !sudo tee >/dev/null %
+nmap <leader>W :w !sudo tee >/dev/null %
 
 " kj 替换 Esc
 inoremap kj <Esc>
@@ -558,9 +568,6 @@ nnoremap ` '
 nnoremap U <C-r>
 
 " Quickly edit/reload the vimrc file
-" nmap <silent> <leader>ev :e $MYVIMRC<CR>
-" nmap <silent> <leader>sv :so $MYVIMRC<CR>
-" edit vimrc/zshrc and load vimrc bindings
 nnoremap <leader>ev :vsp $MYVIMRC<CR>
 nnoremap <leader>ez :vsp ~/.zshrc<CR>
 nnoremap <leader>sv :source $MYVIMRC<CR>
@@ -571,7 +578,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 
 " 具体编辑文件类型的一般设置，比如不要 tab 等
 autocmd FileType python set tabstop=4 shiftwidth=4 expandtab ai
-autocmd FileType ruby,javascript,html,css,xml set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
+autocmd FileType ruby,javascript,html,css,xml,scss,jinja set tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
 autocmd BufRead,BufNewFile *.md,*.mkd,*.markdown set filetype=markdown.mkd
 autocmd BufRead,BufNewFile *.part set filetype=html
 autocmd BufRead,BufNewFile *.vue setlocal filetype=vue.html.javascript tabstop=2 shiftwidth=2 softtabstop=2 expandtab ai
@@ -588,7 +595,7 @@ fun! <SID>StripTrailingWhitespaces()
     %s/\s\+$//e
     call cursor(l, c)
 endfun
-autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+autocmd FileType c,cpp,java,go,php,javascript,puppet,python,rust,twig,xml,yml,perl,html,jinja autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 
 
 " 定义函数AutoSetFileHead，自动插入文件头

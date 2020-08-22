@@ -45,7 +45,7 @@ endif
 " 迄今为止用到的最好的自动VIM自动补全插件
 " 重启 :YcmRestartServer
 " 自动补全单引号，双引号等
-Plug 'Raimondi/delimitMate'
+" Plug 'Raimondi/delimitMate'
 " 自动补全html/xml标签
 Plug 'docunext/closetag.vim', { 'for': ['html', 'xml'] }
 
@@ -147,6 +147,8 @@ Plug 'scrooloose/nerdtree' | Plug 'jistr/vim-nerdtree-tabs'
 Plug 'vim-ctrlspace/vim-ctrlspace'
 " tagbar
 Plug 'majutsushi/tagbar'
+" python-mode
+Plug 'klen/python-mode'
 
 " text object
 " 支持自定义文本对象
@@ -157,6 +159,10 @@ Plug 'kana/vim-textobj-line'
 Plug 'kana/vim-textobj-entire'
 " 增加缩进文本对象: i   dai yai cii - 相同缩进属于同一块
 Plug 'kana/vim-textobj-indent'
+" zencoding
+Plug 'mattn/emmet-vim'
+" vue
+Plug 'posva/vim-vue'
 
 if count(g:bundle_groups, 'tmux')
     " tmux
@@ -227,7 +233,6 @@ if count(g:bundle_groups, 'javascript')
     " see https://github.com/marijnh/tern_for_vim
     " Plug 'marijnh/tern_for_vim', {'do': 'npm install'}
 endif
-
 
 if count(g:bundle_groups, 'coffeescript')
     Plug 'kchmck/vim-coffee-script'
@@ -307,8 +312,6 @@ if has_key(g:plugs, 'syntastic')
     " pip install flake8
     let g:syntastic_python_checkers=['flake8', ] " 使用pyflakes,速度比pylint快
     let g:syntastic_python_flake8_options='--ignore=E501,E225,E124,E712,E116,E131'
-
-    " javascript
     " let g:syntastic_javascript_checkers = ['jsl', 'jshint']
     " let g:syntastic_html_checkers=['tidy', 'jshint']
     " npm install -g eslint eslint-plugin-standard eslint-plugin-promise eslint-config-standard
@@ -365,7 +368,6 @@ if has_key(g:plugs, 'syntastic')
     nnoremap <silent> <Leader>ec :SyntasticToggleMode<CR>
 endif
 " }}}
-
 
 " ale {{{
 if has_key(g:plugs, 'ale')
@@ -460,7 +462,6 @@ endif
         \}
 " }}}
 
-
 " ultisnips {{{
     let g:UltiSnipsExpandTrigger       = "<tab>"
     let g:UltiSnipsJumpForwardTrigger  = "<tab>"
@@ -492,7 +493,6 @@ endif
     let g:UltiSnipsJumpBackwordTrigger = "<c-k>"
 " }}}
 
-
 " delimitMate {{{
     " for python docstring ",优化输入
     au FileType python let b:delimitMate_nesting_quotes = ['"']
@@ -500,7 +500,6 @@ endif
     " 关闭某些类型文件的自动补全
     "au FileType mail let b:delimitMate_autoclose = 0
 " }}}
-
 
 " closetag {{{
     let g:closetag_html_style=1
@@ -893,5 +892,8 @@ endif
     " vnoremap <silent> <leader>es :EsformatterVisual<CR>
 
 " }}}
+
+let g:pymode_rope_goto_definition_cmd = 'vs'
+let g:pymode_lint = 0
 
 "------------------------------------------- end of configs --------------------------------------------
