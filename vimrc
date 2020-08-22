@@ -42,8 +42,8 @@ endif
 " Pathogen load
 filetype off
 
-call pathogen#infect()
-call pathogen#helptags()
+" call pathogen#infect()
+" call pathogen#helptags()
 
 filetype plugin indent on
 syntax on
@@ -234,7 +234,6 @@ set ttyfast
 " 00x增减数字时使用十进制
 set nrformats=
 
-<<<<<<< HEAD
 " 相对行号: 行号变成相对，可以用 nj/nk 进行跳转
 " set relativenumber number
 au FocusLost * :set norelativenumber number
@@ -251,8 +250,6 @@ function! NumberToggle()
 endfunc
 nnoremap <C-n> :call NumberToggle()<cr>
 
-=======
->>>>>>> 419ce1400b92aa3b4dab385ee75d504fd997b330
 " 防止tmux下vim的背景色显示异常
 " Refer: http://sunaku.github.io/vim-256color-bce.html
 if &term =~ '256color'
@@ -335,15 +332,11 @@ endif
 
 " 主要按键重定义
 
-<<<<<<< HEAD
 " 关闭方向键, 强迫自己用 hjkl
 " map <Left> <Nop>
 " map <Right> <Nop>
 " map <Up> <Nop>
 " map <Down> <Nop>
-
-=======
->>>>>>> 419ce1400b92aa3b4dab385ee75d504fd997b330
 "Treat long lines as break lines (useful when moving around in them)
 "se swap之后，同物理行上线直接跳
 nnoremap k gk
@@ -461,12 +454,9 @@ autocmd BufNewFile,BufRead *.py inoremap # X<c-h>#
 " 切换前后buffer
 nnoremap [b :bprevious<cr>
 nnoremap ]b :bnext<cr>
-<<<<<<< HEAD
 " 使用方向键切换buffer
 " noremap <left> :bp<CR>
 " noremap <right> :bn<CR>
-=======
->>>>>>> 419ce1400b92aa3b4dab385ee75d504fd997b330
 
 
 " tab 操作
